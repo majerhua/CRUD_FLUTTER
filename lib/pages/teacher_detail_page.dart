@@ -26,10 +26,8 @@ class TeacherDetailPage extends StatefulWidget {
 class TeacherDetailPageState extends State<TeacherDetailPage> {
   Teacher teacher;
   TeacherDetailPageState(this.teacher);
-  final semesterList = [1, 2, 3, 4];
-  final creditList = [3, 4, 6, 8, 10];
-  int semester = 1;
-  int credits = 4;
+  List<String> gradeList = ["Titulo", "Bachiller", "Doctorado", "Maestria"];
+  String grade = 'Titulo';
   TextEditingController nameController = TextEditingController();
 
   @override
@@ -65,12 +63,39 @@ class TeacherDetailPageState extends State<TeacherDetailPage> {
                       style: textStyle,
                       onChanged: (value) => this.updateName(),
                       decoration: InputDecoration(
-                          labelText: "Name",
+                          labelText: "Nombre",
                           labelStyle: textStyle,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           )),
-                    )
+                    ),
+                    DropdownButton<String>(
+                        value: grade,
+                        icon: Icon(Icons.arrow_downward),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(color: Colors.deepPurple),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (String newValue) {
+                          teacher.grade = newValue;
+                          setState(() {
+                            grade = newValue;
+                          });
+                        },
+                        items: <String>[
+                          "Titulo",
+                          "Bachiller",
+                          "Doctorado",
+                          "Maestria"
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList())
                   ],
                 )
               ],

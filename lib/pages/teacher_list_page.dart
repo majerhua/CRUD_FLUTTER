@@ -25,7 +25,7 @@ class TeacherListPageState extends State<TeacherListPage> {
       body: teacherListItems(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          navigateToDetail(Teacher(''));
+          navigateToDetail(Teacher('', ''));
         },
         tooltip: "Add new Teacher",
         child: new Icon(Icons.add),
@@ -42,7 +42,7 @@ class TeacherListPageState extends State<TeacherListPage> {
           elevation: 5.0,
           child: ListTile(
             title: Text(this.teachers[position].name),
-            subtitle: Text(this.teachers[position].id.toString()),
+            subtitle: Text(this.teachers[position].grade),
             onTap: () {
               debugPrint("Tapped on " + this.teachers[position].id.toString());
               navigateToDetail(this.teachers[position]);
@@ -61,25 +61,6 @@ class TeacherListPageState extends State<TeacherListPage> {
         count = teacherList.length;
       });
     });
-  }
-
-  Color getColor(int semester) {
-    switch (semester) {
-      case 1:
-        return Colors.red;
-        break;
-      case 2:
-        return Colors.orange;
-        break;
-      case 3:
-        return Colors.yellow;
-        break;
-      case 4:
-        return Colors.green;
-        break;
-      default:
-        return Colors.green;
-    }
   }
 
   void navigateToDetail(Teacher teacher) async {

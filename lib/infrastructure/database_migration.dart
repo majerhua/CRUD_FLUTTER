@@ -10,22 +10,15 @@ class DatabaseMigration {
     CREATE TABLE courses(
       id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      description TEXT NULL,
-      semester INTEGER NOT NULL,
-      credits INTEGER NOT NULL,
-      research INTEGER NOT NULL DEFAULT 0
-    );
-    ''',
-    '''
-    CREATE TABLE students(
-      id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL
+      price REAL NULL,
+      techStack TEXT NOT NULL
     );
     ''',
     '''
     CREATE TABLE teachers(
       id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL
+      name TEXT NOT NULL,
+      grade TEXT NULL
     );
     '''
   ];

@@ -1,11 +1,9 @@
 class Course {
   int id;
   String name;
-  String description;
-  int semester;
-  int credits;
-  int research;
+  double price;
+  String techStack;
 
-  Course(this.name, this.semester, this.credits, this.research, [this.description]);
-  Course.withId(this.id, this.name, this.semester, this.credits, this.research, [this.description]);
+  Course(this.name, this.price, this.techStack);
+  Course.withId(this.id, this.name, this.price, this.techStack);
 }

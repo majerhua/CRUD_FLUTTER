@@ -5,15 +5,13 @@ class CourseAssembler implements Assembler<Course> {
   final tableName = 'courses';
   final columnId = 'id';
   final columnName = 'name';
-  final columnDescription = 'description';
-  final columnSemester = 'semester';
-  final columnCredits = 'credits';
-  final columnResearch = 'research';
+  final columnPrice = 'price';
+  final columnTechStack = 'techStack';
 
   @override
   Course fromMap(Map<String, dynamic> query) {
-    Course course = Course(query[columnId], query[columnSemester],
-        query[columnCredits], query[columnResearch], query[columnDescription]);
+    Course course =
+        Course(query[columnName], query[columnPrice], query[columnTechStack]);
     return course;
   }
 
@@ -21,16 +19,14 @@ class CourseAssembler implements Assembler<Course> {
   Map<String, dynamic> toMap(Course course) {
     return <String, dynamic>{
       columnName: course.name,
-      columnDescription: course.description,
-      columnSemester: course.semester,
-      columnCredits: course.credits,
-      columnResearch: course.research
+      columnPrice: course.price,
+      columnTechStack: course.techStack
     };
   }
 
   Course fromDbRow(dynamic row) {
-    return Course.withId(row[columnId], row[columnName], row[columnSemester],
-        row[columnCredits], row[columnResearch], row[columnDescription]);
+    return Course.withId(
+        row[columnId], row[columnName], row[columnPrice], row[columnTechStack]);
   }
 
   @override

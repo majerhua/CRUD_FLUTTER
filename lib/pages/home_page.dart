@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_sqlite/common/app_constants.dart';
 import 'package:flutter_sqlite/pages/course_list_page.dart';
-import 'package:flutter_sqlite/pages/student_list_page.dart';
 import 'package:flutter_sqlite/pages/teacher_list_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -82,9 +81,6 @@ class HomePageState extends State<HomePage> {
                 break;
               case 1:
                 content = TeacherListPage();
-                break;
-              case 2:
-                content = StudentListPage();
                 break;
             }
           });

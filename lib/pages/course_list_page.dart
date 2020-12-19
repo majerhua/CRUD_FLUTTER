@@ -25,9 +25,9 @@ class CourseListPageState extends State<CourseListPage> {
       body: courseListItems(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          navigateToDetail(Course('', 1, 4, 0, ''));
+          navigateToDetail(Course('', 1, ''));
         },
-        tooltip: "Add new Course",
+        tooltip: "Add new Virtual Course",
         child: new Icon(Icons.add),
       ),
     );
@@ -42,10 +42,10 @@ class CourseListPageState extends State<CourseListPage> {
           elevation: 5.0,
           child: ListTile(
             title: Text(this.courses[position].name),
-            subtitle: Text('Credits: ' +
-                this.courses[position].credits.toString() +
+            subtitle: Text('Precio: ' +
+                this.courses[position].price.toString() +
                 ' - ' +
-                this.courses[position].description.toString()),
+                this.courses[position].techStack.toString()),
             onTap: () {
               debugPrint("Tapped on " + this.courses[position].id.toString());
               navigateToDetail(this.courses[position]);
@@ -64,25 +64,6 @@ class CourseListPageState extends State<CourseListPage> {
         count = courseList.length;
       });
     });
-  }
-
-  Color getColor(int semester) {
-    switch (semester) {
-      case 1:
-        return Colors.red;
-        break;
-      case 2:
-        return Colors.orange;
-        break;
-      case 3:
-        return Colors.yellow;
-        break;
-      case 4:
-        return Colors.green;
-        break;
-      default:
-        return Colors.green;
-    }
   }
 
   void navigateToDetail(Course course) async {

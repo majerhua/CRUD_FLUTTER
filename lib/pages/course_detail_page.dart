@@ -6,13 +6,13 @@ import 'package:flutter_sqlite/model/course.dart';
 SqfliteCourseRepository courseRepository =
     SqfliteCourseRepository(DatabaseMigration.get);
 final List<String> choices = const <String>[
-  'Save Course & Back',
-  'Delete Course',
+  'Save Virtual Course & Back',
+  'Delete Virtual Course',
   'Back to List'
 ];
 
-const mnuSave = 'Save Course & Back';
-const mnuDelete = 'Delete Course';
+const mnuSave = 'Save Virtual Course & Back';
+const mnuDelete = 'Delete Virtual Course';
 const mnuBack = 'Back to List';
 
 class CourseDetailPage extends StatefulWidget {
@@ -26,17 +26,16 @@ class CourseDetailPage extends StatefulWidget {
 class CourseDetailPageState extends State<CourseDetailPage> {
   Course course;
   CourseDetailPageState(this.course);
-  final semesterList = [1, 2, 3, 4];
-  final creditList = [3, 4, 6, 8, 10];
-  int semester = 1;
-  int credits = 4;
-  TextEditingController nameController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  List<String> techStackList = ["Android", "PHP", "SQL", "JAVA"];
+  String techStack = 'Android';
+  TextEditingController nombreController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    nameController.text = this.course.name;
-    descriptionController.text = course.description;
+    nombreController.text = this.course.name;
+    priceController.text = course.price.toString();
+
     TextStyle textStyle = Theme.of(context).textTheme.headline6;
     return Scaffold(
         appBar: AppBar(
@@ -63,11 +62,11 @@ class CourseDetailPageState extends State<CourseDetailPage> {
                 Column(
                   children: <Widget>[
                     TextField(
-                      controller: nameController,
+                      controller: nombreController,
                       style: textStyle,
                       onChanged: (value) => this.updateName(),
                       decoration: InputDecoration(
-                          labelText: "Name",
+                          labelText: "Nombre",
                           labelStyle: textStyle,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
@@ -76,28 +75,39 @@ class CourseDetailPageState extends State<CourseDetailPage> {
                     Padding(
                         padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                         child: TextField(
-                          controller: descriptionController,
+                          controller: priceController,
                           style: textStyle,
-                          onChanged: (value) => this.updateDescription(),
+                          onChanged: (value) => this.updatePrice(),
                           decoration: InputDecoration(
-                              labelText: "Description",
+                              labelText: "Precio",
                               labelStyle: textStyle,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               )),
                         )),
-                    ListTile(
-                        title: DropdownButton<String>(
-                      items: semesterList.map((int value) {
-                        return DropdownMenuItem<String>(
-                          value: value.toString(),
-                          child: Text(value.toString()),
-                        );
-                      }).toList(),
-                      style: textStyle,
-                      value: retrieveSemester(course.semester).toString(),
-                      onChanged: (value) => updateSemester(value),
-                    ))
+                    DropdownButton<String>(
+                        value: techStack,
+                        icon: Icon(Icons.arrow_downward),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(color: Colors.deepPurple),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (String newValue) {
+                          course.techStack = newValue;
+                          setState(() {
+                            techStack = newValue;
+                          });
+                        },
+                        items: <String>["Android", "PHP", "SQL", "JAVA"]
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList())
                   ],
                 )
               ],
@@ -118,7 +128,7 @@ class CourseDetailPageState extends State<CourseDetailPage> {
         result = await courseRepository.delete(course);
         if (result != 0) {
           AlertDialog alertDialog = AlertDialog(
-            title: Text("Delete Course"),
+            title: Text("Delete Virtual Course"),
             content: Text("The Course has been deleted"),
           );
           showDialog(context: context, builder: (_) => alertDialog);
@@ -142,35 +152,22 @@ class CourseDetailPageState extends State<CourseDetailPage> {
     Navigator.pop(context, true);
   }
 
-  void updateSemester(String value) {
-    switch (value) {
-      case "1":
-        course.semester = 1;
-        break;
-      case "2":
-        course.semester = 2;
-        break;
-      case "3":
-        course.semester = 3;
-        break;
-      case "4":
-        course.semester = 4;
-        break;
-    }
+  void updateTechStack(String value) {
+    course.techStack = value;
     setState(() {
-      semester = int.parse(value);
+      techStack = value;
     });
   }
 
-  int retrieveSemester(int value) {
-    return semesterList[value - 1];
+  String retrieveTechStack(String value) {
+    return techStackList.firstWhere((element) => element == value);
   }
 
   void updateName() {
-    course.name = nameController.text;
+    course.name = nombreController.text;
   }
 
-  void updateDescription() {
-    course.description = descriptionController.text;
+  void updatePrice() {
+    course.price = double.tryParse(priceController.text);
   }
 }
