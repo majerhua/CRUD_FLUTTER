@@ -67,10 +67,6 @@ class HomePageState extends State<HomePage> {
             icon: Icon(FontAwesomeIcons.userTie),
             label: 'Docentes',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.userGraduate),
-            label: 'Estudiantes',
-          ),
         ],
         onTap: (index) {
           setState(() {

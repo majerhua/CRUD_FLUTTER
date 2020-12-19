@@ -69,33 +69,36 @@ class TeacherDetailPageState extends State<TeacherDetailPage> {
                             borderRadius: BorderRadius.circular(5.0),
                           )),
                     ),
-                    DropdownButton<String>(
-                        value: grade,
-                        icon: Icon(Icons.arrow_downward),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: TextStyle(color: Colors.deepPurple),
-                        underline: Container(
-                          height: 2,
-                          color: Colors.deepPurpleAccent,
-                        ),
-                        onChanged: (String newValue) {
-                          teacher.grade = newValue;
-                          setState(() {
-                            grade = newValue;
-                          });
-                        },
-                        items: <String>[
-                          "Titulo",
-                          "Bachiller",
-                          "Doctorado",
-                          "Maestria"
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList())
+                    Container(
+                      width: 380.0,
+                      child: DropdownButton<String>(
+                          value: grade,
+                          icon: Icon(Icons.arrow_downward),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: TextStyle(color: Colors.deepPurple),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.deepPurpleAccent,
+                          ),
+                          onChanged: (String newValue) {
+                            teacher.grade = newValue;
+                            setState(() {
+                              grade = newValue;
+                            });
+                          },
+                          items: <String>[
+                            "Titulo",
+                            "Bachiller",
+                            "Doctorado",
+                            "Maestria"
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList()),
+                    )
                   ],
                 )
               ],

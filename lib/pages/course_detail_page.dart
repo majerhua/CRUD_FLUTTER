@@ -85,29 +85,32 @@ class CourseDetailPageState extends State<CourseDetailPage> {
                                 borderRadius: BorderRadius.circular(5.0),
                               )),
                         )),
-                    DropdownButton<String>(
-                        value: techStack,
-                        icon: Icon(Icons.arrow_downward),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: TextStyle(color: Colors.deepPurple),
-                        underline: Container(
-                          height: 2,
-                          color: Colors.deepPurpleAccent,
-                        ),
-                        onChanged: (String newValue) {
-                          course.techStack = newValue;
-                          setState(() {
-                            techStack = newValue;
-                          });
-                        },
-                        items: <String>["Android", "PHP", "SQL", "JAVA"]
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList())
+                    Container(
+                      width: 380.0,
+                      child: DropdownButton<String>(
+                          value: techStack,
+                          icon: Icon(Icons.arrow_downward),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: TextStyle(color: Colors.deepPurple),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.deepPurpleAccent,
+                          ),
+                          onChanged: (String newValue) {
+                            course.techStack = newValue;
+                            setState(() {
+                              techStack = newValue;
+                            });
+                          },
+                          items: <String>["Android", "PHP", "SQL", "JAVA"]
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList()),
+                    )
                   ],
                 )
               ],
